@@ -49,6 +49,11 @@ You can dowload tgcrypto for pyrogram ptimization, but it requires microsoft c++
 Also you can use pytesseract, which is apparently faster then easyocr, but you need to install additional software too.
 
 
+## Error handling
+There is a chance that after some usage there will be an error pyrogram.errors.exceptions.flood_420.FloodWait, which is basycally Telegram is telling us our requests/posts are too fast.
+Unfortunatly, now I dont know how to fix this issue properly, the dirty solution is just add some sleep to the code. If you have any suggestions, feel free to open a pull request.
+
+
 ## Demo
 
 
