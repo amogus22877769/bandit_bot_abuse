@@ -6,9 +6,10 @@ import easyocr
 
 api_id = 12345
 api_hash = "0123456789abcdef0123456789abcdef"
+username = 'banditpIaybot'
+length: int = 5
 
-length: int = 4
-box: tuple[int, int, int, int] = (341, 184, 415, 214)
+box: tuple[int, int, int, int] = (341, 184, 400 + (length - 3) * 15, 214)
 
 with open(f'{length}_letter_words.txt', encoding='utf-8', mode='r') as f:
     list_of_words: list[str] = f.read().split()
@@ -54,12 +55,12 @@ seq_cache: int = 0
 
 first_hook: bool = True
 
-@app.on_message(filters=filters.user('banditpIaybot') & filters.photo)
+@app.on_message(filters=filters.user(username) & filters.photo)
 async def main(client, message) -> None:
     global text_cache, seq_cache, first_hook
     if not first_hook:
         i = 1
-        async for history_message in app.get_chat_history('banditpIaybot'):
+        async for history_message in app.get_chat_history(username):
             if not i:
                 if history_message.text[0] != '❌':
                     text_cache = None
@@ -106,11 +107,11 @@ async def main(client, message) -> None:
     if not answer:
         await message.click('пропустить слово')
         first_hook = True
-        async for message_to_call_on in app.get_chat_history('banditpIaybot'):
+        async for message_to_call_on in app.get_chat_history(username):
             await main(client, message_to_call_on)
             break
     else:
-        await app.send_message('banditpIaybot', answer)
+        await app.send_message(username, answer)
 
 
 if __name__ == '__main__':
