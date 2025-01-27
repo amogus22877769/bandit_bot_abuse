@@ -16,7 +16,7 @@ Install the additional libraries with pip
 ```
     
 ## Run locally
-To run the project you need to configure api_id, api_hash, and, of course the length of the words you are getting with the pixel box the words are taking on the screen. And you also need to parse the list of words, if their length is greater then 5 (read below)
+To run the project you need to configure api_id, api_hash, and, of course the length of the words you are getting. And you also need to parse the list of words, if their length is greater then 5 (read below)
 #### main.py
 ```python
 <...>
@@ -24,7 +24,6 @@ api_id = 12345
 api_hash = "0123456789abcdef0123456789abcdef"
 
 length: int = n
-box: tuple[int, int, int, int] = (341, 184, 415, 214) # thats an example of 4-letter word box
 <...>
 ```
 To parse additional n-length words
@@ -38,7 +37,7 @@ length = n
   python main.py
 ```
 Then, you need to go
-работа -> 👮🏻‍♂️ федерал
+работа -> 👮🏻‍♂️ федерал or just send random symbol if you are already in the 👮🏻‍♂️ федерал page
 and the chain will start by itself.
 
 
