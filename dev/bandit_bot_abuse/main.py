@@ -1,6 +1,9 @@
 import os
 from copy import deepcopy
+from time import sleep
+
 from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
 from PIL import Image
 import easyocr
 
@@ -75,8 +78,9 @@ async def main(client, message) -> None:
     if not text_cache:
         try:
             await app.download_media(message, file_name='image.jpg')
-        except ValueError:
-            print(message)
+        except FloodWait as e:
+            sleep(e.value)
+            await app.download_media(message, file_name='image.jpg')
 
         image = Image.open('downloads/image.jpg')
         cropped_image = image.crop(box=box)
