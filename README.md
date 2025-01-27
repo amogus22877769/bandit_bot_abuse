@@ -53,5 +53,5 @@ Also you can use pytesseract, which is apparently faster then easyocr, but you n
 
 
 
-https://github.com/user-attachments/assets/11bccc2f-809a-4086-8774-a47a330dcf9a
+
 
