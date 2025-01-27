@@ -1,7 +1,7 @@
 
 # BANDIT BOT ABUSE
 
-Stack up your racks (wich you can you to gamble) in telegeam client of Bandit BOT
+Stack up your racks (wich you gamble on) in telegeam client of Bandit BOT
 
 ## NOTE
 
