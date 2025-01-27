@@ -5,7 +5,7 @@ Stack up your racks (wich you can you to gamble) in telegeam client of Bandit BO
 
 ## NOTE
 
-Use the dev directory, because src code is unstable and slow, it is prototype and can be used only for understandind project structure
+Use the dev directory, because src code is unstable and slow, it is prototype and can be used only for understanding project structure
 
 ## Installation
 
@@ -15,7 +15,7 @@ Install the additional libraries with pip
   pip install -r requirements.txt
 ```
     
-## Usage/Examples
+## Run locally
 To run the project you need to configure api_id, api_hash, and, of course the length of the words you are getting with the pixel box the words are taking on the screen. And you also need to parse the list of words, if their length is greater then 5 (read below)
 #### main.py
 ```python
@@ -34,6 +34,12 @@ To parse additional n-length words
 length = n
 <...>
 ```
+```bash
+  python main.py
+```
+Then, you need to go
+работа -> 👮🏻‍♂️ федерал
+and the chain will start by itself.
 
 
 
@@ -43,4 +49,9 @@ You can dowload tgcrypto for pyrogram ptimization, but it requires microsoft c++
 Also you can use pytesseract, which is apparently faster then easyocr, but you need to install additional software too.
 
 
-##  Note
+## Demo
+
+
+
+https://github.com/user-attachments/assets/11bccc2f-809a-4086-8774-a47a330dcf9a
+
