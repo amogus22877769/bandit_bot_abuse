@@ -16,7 +16,7 @@ Install the additional libraries with pip
 ```
     
 ## Run locally
-To run the project you need to configure api_id, api_hash, and, of course the length of the words you are getting. And you also need to parse the list of words, if their length is greater then 5 (read below)
+To run the project you need to configure api_id, api_hash, and, of course the length of the words you are getting (also you can change the time_to_sleep_to_avoid_flood_wait, read ERROR HANDLING). And you also need to parse the list of words, if their length is greater then 5 (read below)
 #### main.py
 ```python
 <...>
@@ -44,13 +44,13 @@ and the chain will start by itself.
 
 ## Optimizations
 
-You can dowload tgcrypto for pyrogram ptimization, but it requires microsoft c++ to be installed.
+You can dowload tgcrypto for pyrogram optimization, but it requires microsoft c++ to be installed.
 Also you can use pytesseract, which is apparently faster then easyocr, but you need to install additional software too.
 
 
 ## Error handling
 There is a chance that after some usage there will be an error pyrogram.errors.exceptions.flood_420.FloodWait, which is basycally Telegram is telling us our requests/posts are too fast.
-Unfortunatly, now I dont know how to fix this issue properly, the dirty solution is just add some sleep to the code. If you have any suggestions, feel free to open a pull request.
+Unfortunatly, now I dont know how to fix this issue properly, the dirty solution is just add some sleep to the code. To do that, just change the time_to_sleep_to_avoid_flood_wait variable in main.py. If you have any suggestions, feel free to open a pull request.
 
 
 ## Demo
