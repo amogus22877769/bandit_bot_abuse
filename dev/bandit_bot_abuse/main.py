@@ -118,7 +118,7 @@ async def main(client, message) -> None:
                 seq_cache = index + 1
                 break
     print(f'answer = {answer}')
-    if not answer:
+    if not answer or answer == 'ТЕКСТ':
         await message.click('пропустить слово')
         first_hook = True
         async for message_to_call_on in app.get_chat_history(username):
