@@ -1,7 +1,7 @@
 
 # BANDIT BOT ABUSE
 
-Stack up your racks (wich you gamble on) in telegeam client of Bandit BOT
+Stack up your racks (which you gamble on) in telegeam client of Bandit BOT
 
 ## NOTE
 
@@ -24,6 +24,8 @@ api_id = 12345
 api_hash = "0123456789abcdef0123456789abcdef"
 
 length: int = n
+
+time_to_sleep_to_avoid_flood_wait = 3 # that is the default value
 <...>
 ```
 To parse additional n-length words
