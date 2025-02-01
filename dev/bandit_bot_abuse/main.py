@@ -1,5 +1,7 @@
 import os
 from copy import deepcopy
+
+import asyncio
 from time import sleep
 
 from pyrogram import Client, filters
@@ -11,6 +13,8 @@ api_id = 12345
 api_hash = "0123456789abcdef0123456789abcdef"
 username = 'banditpIaybot'
 length: int = 5
+
+time_to_sleep_to_avoid_flood_wait = 3
 
 box: tuple[int, int, int, int] = (341, 184, 400 + (length - 3) * 15, 214)
 
@@ -32,23 +36,32 @@ def list_multiplication(a: int, b: list[list[int]]) -> list[list[int]]:
 
 def get_sequences(seq: list[int]) -> list[list[int]]:
     if len(seq) == 2:
-        return [
-            [seq[0], seq[1]],
-            [seq[1], seq[0]]
-        ]
+        if seq[0] != seq[1]:
+            return [
+                [seq[0], seq[1]],
+                [seq[1], seq[0]]
+            ]
+        else:
+            return [
+                [seq[0], seq[0]]
+            ]
     else:
         res: list[list[list[int]]] = []
+        first_symbols: set[int] = set()
         for index, el in enumerate(seq):
-            c = deepcopy(seq)
-            c.pop(index)
-            res.append(list_multiplication(el, get_sequences(c)))
+            if el not in first_symbols:
+                c = deepcopy(seq)
+                c.pop(index)
+                res.append(list_multiplication(el, get_sequences(c)))
+                first_symbols.add(el)
         return [
             seq
             for wrapped_seq in res
             for seq in wrapped_seq
         ]
 
-seqs: list[list[int]] = get_sequences(list(range(length)))
+
+seqs = None
 
 app = Client("my_account", api_id, api_hash)
 
@@ -58,29 +71,25 @@ seq_cache: int = 0
 
 first_hook: bool = True
 
+last_message_caption = None
+
 @app.on_message(filters=filters.user(username) & filters.photo)
 async def main(client, message) -> None:
-    global text_cache, seq_cache, first_hook
+    sleep(time_to_sleep_to_avoid_flood_wait)
+    global text_cache, seq_cache, first_hook, seqs, last_message_caption
     if not first_hook:
-        i = 1
-        async for history_message in app.get_chat_history(username):
-            if not i:
-                if history_message.text[0] != '❌':
-                    text_cache = None
-                    seq_cache = 0
-                break
-            else:
-                i -= 1
+        if last_message_caption != message.caption:
+            text_cache = None
+            seq_cache = 0
+            seqs = None
+            last_message_caption = message.caption
     else:
         text_cache = None
         first_hook = False
         seq_cache = 0
+        seqs = None
     if not text_cache:
-        try:
-            await app.download_media(message, file_name='image.jpg')
-        except FloodWait as e:
-            sleep(e.value)
-            await app.download_media(message, file_name='image.jpg')
+        await app.download_media(message, file_name='image.jpg')
 
         image = Image.open('downloads/image.jpg')
         cropped_image = image.crop(box=box)
@@ -91,13 +100,14 @@ async def main(client, message) -> None:
         text_cache = text
         os.remove('downloads/image.jpg')
         os.remove('downloads/cropped_image.jpg')
+
+        seqs = get_sequences([index if letter not in text[:index] else text.index(letter) for index, letter in enumerate(text)])
     else:
         text = text_cache
     print(f'text = {text}')
     answer: str = ''
     print(f'seq_cache: {seq_cache}')
     if len(text) == length:
-        index: int = seq_cache
         for index in range(seq_cache, len(seqs)):
             guess: str = ''
             for el in seqs[index]:
