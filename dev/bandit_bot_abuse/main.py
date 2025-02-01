@@ -1,11 +1,7 @@
 import os
 from copy import deepcopy
-
-import asyncio
 from time import sleep
-
 from pyrogram import Client, filters
-from pyrogram.errors import FloodWait
 from PIL import Image
 import easyocr
 
